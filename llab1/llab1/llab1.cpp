@@ -18,13 +18,32 @@ struct CS {
     string class_cs;
 };
 
+void ShowMenu(Pipe t)
+{
+    int option;
+    while (1) {
+        cout << "Choose option: \n1. Add pipe; \n2. Add CS; \n3. Show all objects;";
+        cin >> option;
+        switch (option) {
+        case 1:
+            cout << "Insert pipe name: ";
+            cin >> t.name;
+            break;
+        case 2:
+            break;
+        case 3:
+            cout << "\n Pipe name: " << t.name;
+            break;
+        }
+    }
+};
+
 int main()
 {
     Pipe truba;
-    cout << "Введите название трубы:";
-    cin >> truba.name;
-    cout << "Название трубы:" << truba.name;
-    return 0;
+    CS comp_station;
+    ShowMenu(truba, comp_station);
+    return 1;
 }
 
 // Запуск программы: CTRL+F5 или меню "Отладка" > "Запуск без отладки"
