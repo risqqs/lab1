@@ -18,7 +18,7 @@ struct CS {
     string class_cs;
 };
 
-void ShowMenu(Pipe t)
+void ShowMenu(Pipe t, CS cs)
 {
     int option;
     while (1) {
