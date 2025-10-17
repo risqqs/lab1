@@ -50,6 +50,22 @@ double getDouble() {
     }
 }
 
+bool getBool() {
+    int n;
+    while (true) {
+        cin >> n;
+        if (cin.fail() || (n != 0 && n != 1)) {
+            cout << "Error: enter 0 (no) or 1 (yes): ";
+            cin.clear();
+            cin.ignore(numeric_limits<streamsize>::max(), '\n');
+        }
+        else {
+            cin.ignore(numeric_limits<streamsize>::max(), '\n');
+            return n == 1;
+        }
+    }
+}
+
 int main()
 {
     return 0;
