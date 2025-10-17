@@ -142,6 +142,66 @@ void editStation(Station& s) {
     cout << "Updated" << endl;
 }
 
+void saveFile(const Pipe& p, const Station& s, const string& name) {
+    ofstream file(name);
+    if (!file.is_open()) {
+        cout << "Error: cannot save" << endl;
+        return;
+    }
+
+    file << "Pipe" << endl;
+    file << p.name << endl;
+    file << p.length << endl;
+    file << p.diameter << endl;
+    file << p.repair << endl;
+
+    file << "Station" << endl;
+    file << s.name << endl;
+    file << s.shops << endl;
+    file << s.working << endl;
+    file << s.grade << endl;
+
+    file.close();
+    cout << "Saved: " << name << endl;
+}
+
+void loadFile(Pipe& p, Station& s, const string& name) {
+    ifstream file(name);
+    if (!file.is_open()) {
+        cout << "Error: cannot load" << endl;
+        return;
+    }
+
+    string line;
+
+    getline(file, line);
+    if (line != "Pipe") {
+        cout << "Error: wrong format" << endl;
+        file.close();
+        return;
+    }
+
+    getline(file >> ws, p.name);
+    file >> p.length >> p.diameter >> p.repair;
+    file.ignore();
+
+    getline(file, line);
+    if (line != "Station") {
+        cout << "Error: wrong format" << endl;
+        file.close();
+        return;
+    }
+
+    getline(file >> ws, s.name);
+    file >> s.shops >> s.working >> s.grade;
+
+    if (s.working > s.shops) {
+        s.working = s.shops;
+    }
+
+    file.close();
+    cout << "Loaded: " << name << endl;
+}
 
 int main()
 {
