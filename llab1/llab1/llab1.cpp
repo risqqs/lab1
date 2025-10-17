@@ -33,6 +33,7 @@ int getInt() {
             return n;
         }
     }
+}
 
 double getDouble() {
     double n;
