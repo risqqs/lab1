@@ -22,18 +22,62 @@ struct Station {
     double grade = 0;
 };
 
-int getInt() {
-    int n;
+bool isValidName(const string& str) {
+    if (str.empty()) return false;
+    for (char c : str) {
+        if ((c >= 'a' && c <= 'z') || (c >= 'A' && c <= 'Z') ||
+            (c >= 'а' && c <= 'я') || (c >= 'А' && c <= 'Я')) {
+            return true;
+        }
+    }
+    return false;
+}
+
+string getName() {
+    string name;
     while (true) {
-        cin >> n;
-        if (cin.fail() || n <= 0) {
+        getline(cin, name);
+
+        if (!name.empty() && isValidName(name)) {
+            return name;
+        }
+        cout << "Error: name cannot be empty and must contain letters. Enter again: ";
+    }
+}
+
+int getInt() {
+    string input;
+    while (true) {
+        getline(cin, input);
+
+        if (input.empty()) {
             cout << "Error: enter positive integer: ";
-            cin.clear();
-            cin.ignore(numeric_limits<streamsize>::max(), '\n');
+            continue;
+        }
+
+        bool allDigits = true;
+        for (char c : input) {
+            if (c < '0' || c > '9') {
+                allDigits = false;
+                break;
+            }
+        }
+
+        if (!allDigits) {
+            cout << "Error: only digits allowed. Enter positive integer: ";
+            continue;
+        }
+
+        int n = 0;
+        for (char c : input) {
+            n = n * 10 + (c - '0');
+        }
+
+        if (n > 0) {
+            return n;
         }
         else {
-            cin.ignore(numeric_limits<streamsize>::max(), '\n');
-            return n;
+            cout << "Error: must be positive. Enter positive integer: ";
         }
     }
 }
@@ -72,11 +116,11 @@ bool getBool() {
 
 void addPipe(Pipe& p) {
     cout << "Enter pipe location: ";
-    getline(cin >> ws, p.name);
+    p.name = getName();
     cout << "Enter length (km): ";
     p.length = getDouble();
     cout << "Enter diameter (mm): ";
-    p.diameter = getDouble();
+    p.diameter = getInt();
     cout << "Under repair? (0-no, 1-yes): ";
     p.repair = getBool();
 }
@@ -102,7 +146,7 @@ void editPipe(Pipe& p) {
 
 void addStation(Station& s) {
     cout << "Enter station name: ";
-    getline(cin >> ws, s.name);
+    s.name = getName();
     cout << "Enter total shops: ";
     s.shops = getInt();
     cout << "Enter working shops: ";
