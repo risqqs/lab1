@@ -34,6 +34,22 @@ int getInt() {
         }
     }
 
+double getDouble() {
+    double n;
+    while (true) {
+        cin >> n;
+        if (cin.fail() || n <= 0) {
+            cout << "Error: enter positive number: ";
+            cin.clear();
+            cin.ignore(numeric_limits<streamsize>::max(), '\n');
+        }
+        else {
+            cin.ignore(numeric_limits<streamsize>::max(), '\n');
+            return n;
+        }
+    }
+}
+
 int main()
 {
     return 0;
