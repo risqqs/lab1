@@ -203,8 +203,76 @@ void loadFile(Pipe& p, Station& s, const string& name) {
     cout << "Loaded: " << name << endl;
 }
 
+void showAll(const Pipe& p, const Station& s) {
+    if (p.name.empty() && s.name.empty()) {
+        cout << "No data" << endl;
+        return;
+    }
+
+    if (!p.name.empty()) {
+        showPipe(p);
+    }
+
+    if (!s.name.empty()) {
+        showStation(s);
+    }
+}
+
+void menu() {
+    Pipe p;
+    Station s;
+    int n;
+    string name;
+
+    while (true) {
+        cout << "\n=== Menu ===" << endl;
+        cout << "1. Add pipe" << endl;
+        cout << "2. Add station" << endl;
+        cout << "3. View all" << endl;
+        cout << "4. Edit pipe" << endl;
+        cout << "5. Edit station" << endl;
+        cout << "6. Save" << endl;
+        cout << "7. Load" << endl;
+        cout << "0. Exit" << endl;
+        cout << "Choose: ";
+
+        cin >> n;
+        cin.ignore(numeric_limits<streamsize>::max(), '\n');
+
+        switch (n) {
+        case 1: addPipe(p); break;
+        case 2: addStation(s); break;
+        case 3: showAll(p, s); break;
+        case 4: editPipe(p); break;
+        case 5: editStation(s); break;
+        case 6:
+            if (p.name.empty() || s.name.empty()) {
+                cout << "Error: add pipe and station first" << endl;
+            }
+            else {
+                cout << "Enter filename: ";
+                getline(cin, name);
+                saveFile(p, s, name);
+            }
+            break;
+        case 7:
+            cout << "Enter filename: ";
+            getline(cin, name);
+            loadFile(p, s, name);
+            break;
+        case 0:
+            cout << "Exit" << endl;
+            return;
+        default:
+            cout << "Error: wrong choice" << endl;
+            break;
+        }
+    }
+}
+
 int main()
 {
+    menu();
     return 0;
 }
 
