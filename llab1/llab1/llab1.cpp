@@ -66,6 +66,36 @@ bool getBool() {
     }
 }
 
+void addPipe(Pipe& p) {
+    cout << "Enter pipe location: ";
+    getline(cin >> ws, p.name);
+    cout << "Enter length (km): ";
+    p.length = getDouble();
+    cout << "Enter diameter (mm): ";
+    p.diameter = getDouble();
+    cout << "Under repair? (0-no, 1-yes): ";
+    p.repair = getBool();
+}
+
+void showPipe(const Pipe& p) {
+    cout << "\n--- Pipe ---" << endl;
+    cout << "Location: " << p.name << endl;
+    cout << "Length: " << p.length << " km" << endl;
+    cout << "Diameter: " << p.diameter << " mm" << endl;
+    cout << "Repair: " << (p.repair ? "Yes" : "No") << endl;
+}
+
+void editPipe(Pipe& p) {
+    if (p.name.empty()) {
+        cout << "Error: no pipe" << endl;
+        return;
+    }
+    cout << "Current repair: " << (p.repair ? "Yes" : "No") << endl;
+    cout << "Enter new status (0-no, 1-yes): ";
+    p.repair = getBool();
+    cout << "Updated" << endl;
+}
+
 int main()
 {
     return 0;
