@@ -96,6 +96,53 @@ void editPipe(Pipe& p) {
     cout << "Updated" << endl;
 }
 
+void addStation(Station& s) {
+    cout << "Enter station name: ";
+    getline(cin >> ws, s.name);
+    cout << "Enter total shops: ";
+    s.shops = getInt();
+    cout << "Enter working shops: ";
+    s.working = getInt();
+
+    while (s.working > s.shops) {
+        cout << "Error: working shops > total" << endl;
+        cout << "Enter working shops: ";
+        s.working = getInt();
+    }
+
+    cout << "Enter station grade: ";
+    s.grade = getDouble();
+}
+
+void showStation(const Station& s) {
+    cout << "\n--- Station ---" << endl;
+    cout << "Name: " << s.name << endl;
+    cout << "Total shops: " << s.shops << endl;
+    cout << "Working shops: " << s.working << endl;
+    cout << "Grade: " << s.grade << endl;
+}
+
+void editStation(Station& s) {
+    if (s.name.empty()) {
+        cout << "Error: no station" << endl;
+        return;
+    }
+
+    cout << "Current: " << s.working << " of " << s.shops << " working" << endl;
+    cout << "Enter new working shops: ";
+    int n = getInt();
+
+    while (n > s.shops) {
+        cout << "Error: working shops > total" << endl;
+        cout << "Enter working shops: ";
+        n = getInt();
+    }
+
+    s.working = n;
+    cout << "Updated" << endl;
+}
+
+
 int main()
 {
     return 0;
